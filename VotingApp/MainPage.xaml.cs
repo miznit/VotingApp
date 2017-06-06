@@ -42,7 +42,6 @@ namespace VotingApp
                 await Dialog.ShowAsync();
             }
             else
-
             {
                 if (textboxElectoralID.Text.Contains("PMR"))
                 {
