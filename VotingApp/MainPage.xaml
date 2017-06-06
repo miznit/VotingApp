@@ -5,6 +5,7 @@
     xmlns:local="using:VotingApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using.VotingApp.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -20,7 +21,7 @@
             <TextBox x:Name="textboxFirstNames" TextWrapping="Wrap" TextAlignment="Center" PlaceholderText="First Name/s:" KeyUp="textboxFirstNames_KeyUp"/>
 
             <TextBlock x:Name="textBlockDOB" TextWrapping="Wrap" Text="Date of Birth" TextAlignment="Center" FontStyle="Italic"/>
-            <DatePicker HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <DatePicker x:Name="DatePicker" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <TextBox x:Name="textboxElectoralID" TextWrapping="Wrap" TextAlignment="Center" PlaceholderText="Electoral ID:" KeyUp="textboxElectoralID_KeyUp"/>
 
         </StackPanel>

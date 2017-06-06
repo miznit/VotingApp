@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 namespace VotingApp
 {
@@ -24,6 +25,13 @@ namespace VotingApp
         public Summary()
         {
             this.InitializeComponent();
+
+            textBoxSummary1.Text = MainPage.theUser.CandidateVote;
+            textBoxSummary2.Text = MainPage.theUser.PartyVote;
+            textBoxSummary3.Text = MainPage.theUser.ReferendumVote;
+
+            
+
         }
 
         private void btnSummaryBack_Click(object sender, RoutedEventArgs e)

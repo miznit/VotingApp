@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Text.RegularExpressions;
 using Windows.UI.Popups;
+using VotingApp.Models;
+using SQLite.Net;
+using SQLite.Net.Attributes;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -25,9 +28,25 @@ namespace VotingApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private List<User> users;
+        static public User theUser;
+        private string path;
+
+        SQLiteConnection conn;
+
+
+
+
         public MainPage()
         {
             this.InitializeComponent();
+            theUser = new User();
+            users = UserManager.GetUsers();
+
+            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            conn = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            conn.CreateTable<User>();
+
         }
 
         private async void btnMainPageSubmit_Click(object sender, RoutedEventArgs e)
@@ -43,21 +62,45 @@ namespace VotingApp
             }
             else
             {
-                if (textboxElectoralID.Text.Contains("PMR"))
+                foreach (var user in users)
                 {
-                   this.Frame.Navigate(typeof(PMR_Candidates));
+                    if (textboxLastName.Text == user.LastName && textboxFirstNames.Text == user.FirstNames && textboxElectoralID.Text == user.ElectoralID)
+                    {
+                        if (textboxElectoralID.Text.Contains("PMR"))
+                        {
+                            this.Frame.Navigate(typeof(PMR_Candidates));
+                        }
+
+                        else if (textboxElectoralID.Text.Contains("TTH"))
+                        {
+                            this.Frame.Navigate(typeof(TTH_Candidates));
+                        }
+
+                        else if (textboxElectoralID.Text.Contains("RAN"))
+                        {
+                            this.Frame.Navigate(typeof(RAN_Candidates));
+                        }
+                    }
                 }
 
-                else if (textboxElectoralID.Text.Contains("TTH"))
-                {
-                   this.Frame.Navigate(typeof(TTH_Candidates));
-                }
-
-                else if (textboxElectoralID.Text.Contains("RAN"))
-                {
-                    this.Frame.Navigate(typeof(RAN_Candidates));
-                }
+                
+               
             }
+
+            theUser.LastName = textboxLastName.Text;
+            theUser.FirstNames = textboxFirstNames.Text;
+            theUser.DateOfBirth = DatePicker.Date.ToString("yyyy-MM-dd");
+            theUser.ElectoralID = textboxElectoralID.Text;
+
+
+            var s = conn.Insert(theUser);
+            //{
+            //    LastName = textboxLastName.Text,
+            //    FirstNames = textboxFirstNames.Text,
+            //    DateOfBirth = DatePicker.Date.ToString("yyyy-MM-dd"),
+            //    ElectoralID = textboxElectoralID.Text,
+
+            //};
         }
 
         public void lastNameRegex(string re, TextBox tb)
@@ -118,5 +161,19 @@ namespace VotingApp
         {
             firstNameRegex(@"^([a-zA-Z\s\'\-]+)$", textboxFirstNames);
         }
+
+        //public class user
+        //{
+        //    [PrimaryKey, AutoIncrement]
+
+        //    public string lastName { get; set; }
+
+        //    public string firstNames { get; set; }
+
+        //    public string dateOfBirth { get; set; }
+
+        //    public string electoralID { get; set; }
+        //}
+
     }
 }

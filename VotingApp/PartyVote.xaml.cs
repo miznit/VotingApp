@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +31,36 @@ namespace VotingApp
 
         private void btnPVNext_Click(object sender, RoutedEventArgs e)
         {
-          this.Frame.Navigate(typeof(ReferendumVote));
+          
+
+            var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            var conn = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            //conn.CreateTable<User>();
+
+            if (((RadioButton)radioButtonPV1).IsChecked ?? true)
+            {
+
+                MainPage.theUser.PartyVote = radioButtonPV1.Content.ToString();
+
+                conn.InsertOrReplace(MainPage.theUser);
+
+            }
+
+            else if (((RadioButton)radioButtonPV2).IsChecked ?? true)
+            {
+                MainPage.theUser.PartyVote = radioButtonPV2.Content.ToString();
+                conn.InsertOrReplace(MainPage.theUser);
+
+            }
+
+            else if (((RadioButton)radioButtonPV3).IsChecked ?? true)
+            {
+                MainPage.theUser.PartyVote = radioButtonPV3.Content.ToString();
+                conn.InsertOrReplace(MainPage.theUser);
+
+            }
+
+            this.Frame.Navigate(typeof(ReferendumVote));
         }
     }
 }

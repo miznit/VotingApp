@@ -8,7 +8,7 @@ namespace VotingApp.Models
 {
     public class UserManager
     {
-        public static List<User>GetUsers()
+        public static List<User> GetUsers()
         {
             var user = new List<User>();
 
