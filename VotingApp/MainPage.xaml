@@ -28,7 +28,34 @@
         <StackPanel HorizontalAlignment="Center" Height="170" Margin="10,460,10,0" VerticalAlignment="Top" Width="340">
             <Button x:Name="btnMainPageSubmit" Content="Submit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Click="btnMainPageSubmit_Click" />
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Height="59" Margin="10,10,0,0" VerticalAlignment="Top" Width="340"/>
+        <StackPanel HorizontalAlignment="Left" Height="59" Margin="10,10,0,0" VerticalAlignment="Top" Width="340">
+            <StackPanel Orientation="Horizontal"         HorizontalAlignment="Center"           VerticalAlignment="Center">
+                <Rectangle x:Name="StatusIcon"              Fill="Orange"              Height="15" Width="15"              VerticalAlignment="Center"              Margin="10" />
+                <TextBlock x:Name="StatusText"                 Text="your online status is.."                 FontSize="24" FontWeight="Light" />
+            </StackPanel>
+        </StackPanel>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="OfflineState">
+                    <VisualState.StateTriggers>
+                        <local:NetworkConnectionTrigger RequiresInternet="False" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="StatusText.Text" Value="You are currently offline" />
+                        <Setter Target="StatusIcon.Fill" Value="Red" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="ConnectedState">
+                    <VisualState.StateTriggers>
+                        <local:NetworkConnectionTrigger RequiresInternet="True" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="StatusText.Text" Value="You are currently online" />
+                        <Setter Target="StatusIcon.Fill" Value="Green" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
     </Grid>
 </Page>

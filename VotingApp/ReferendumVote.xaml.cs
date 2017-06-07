@@ -26,13 +26,17 @@ namespace VotingApp
     public sealed partial class ReferendumVote : Page
     {
         private string path;
-
+        static public User theUser;
         SQLiteConnection conn;
+
         
-           
+
         public ReferendumVote()
         {
             this.InitializeComponent();
+
+            theUser = new User();
+
             var path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
             var conn = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
             conn.CreateTable<User>();
@@ -47,21 +51,32 @@ namespace VotingApp
 
             if (((RadioButton)radioButtonRV1).IsChecked == true)
             {
+                currentUser.referendumVote = radioButtonRV1.Content.ToString();
 
-                MainPage.theUser.ReferendumVote = radioButtonRV1.Content.ToString();
+                //MainPage.theUser.ReferendumVote = radioButtonRV1.Content.ToString();
 
-                conn.InsertOrReplace(MainPage.theUser);
-              
+                //conn.InsertOrReplace(MainPage.theUser);
+
             }
 
             else if (((RadioButton)radioButtonRV2).IsChecked == true)
             {
-                MainPage.theUser.ReferendumVote = radioButtonRV2.Content.ToString();
-                conn.InsertOrReplace(MainPage.theUser);
-                
+                currentUser.referendumVote = radioButtonRV2.Content.ToString();
+                //MainPage.theUser.ReferendumVote = radioButtonRV2.Content.ToString();
+                //conn.InsertOrReplace(MainPage.theUser);
+
             }
 
+            //theUser.LastName = lastNameText;
+            //theUser.FirstNames = textboxFirstNames.Text;
+            //theUser.DateOfBirth = DatePicker.Date.ToString("yyyy-MM-dd");
+            //theUser.ElectoralID = textboxElectoralID.Text;
+            //theUser.TimeOfVote = DateTime.Now.ToString();
+            //var s = conn.Insert(theUser);
+           // var s = conn.Insert(theUser);
             this.Frame.Navigate(typeof(Summary));
+
+            
         }
     }
 }

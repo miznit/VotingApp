@@ -34,6 +34,10 @@ namespace VotingApp
 
         SQLiteConnection conn;
 
+        public string lastNameText;
+
+           
+
 
 
 
@@ -42,10 +46,12 @@ namespace VotingApp
             this.InitializeComponent();
             theUser = new User();
             users = UserManager.GetUsers();
-
+                      
+                        
             path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
             conn = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
             conn.CreateTable<User>();
+
 
         }
 
@@ -87,13 +93,19 @@ namespace VotingApp
                
             }
 
-            theUser.LastName = textboxLastName.Text;
-            theUser.FirstNames = textboxFirstNames.Text;
-            theUser.DateOfBirth = DatePicker.Date.ToString("yyyy-MM-dd");
-            theUser.ElectoralID = textboxElectoralID.Text;
 
 
-            var s = conn.Insert(theUser);
+
+
+            currentUser.lastName = textboxLastName.Text;
+            currentUser.firstNames = textboxFirstNames.Text;
+            currentUser.dateOfBirth = DatePicker.Date.ToString("yyyy-MM-dd");
+            currentUser.electoralID = textboxElectoralID.Text;
+            currentUser.timeOfVote = DateTime.Now.ToString();
+
+
+
+            //conn.Insert(theUser);
             //{
             //    LastName = textboxLastName.Text,
             //    FirstNames = textboxFirstNames.Text,

@@ -26,6 +26,8 @@ namespace VotingApp.Models
 
         private string referendumVote;
 
+        private string timeOfVote;
+
         [PrimaryKey]
         public string ElectoralID
         {
@@ -109,6 +111,19 @@ namespace VotingApp.Models
             set
             {
                 referendumVote = value;
+            }
+        }
+
+        public string TimeOfVote
+        {
+            get
+            {
+                return timeOfVote;
+            }
+
+            set
+            {
+                timeOfVote = value;
             }
         }
     }

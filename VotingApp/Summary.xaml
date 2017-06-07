@@ -34,7 +34,7 @@ xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         </StackPanel>
         <Grid HorizontalAlignment="Center" Height="133" Margin="10,499,10,0" VerticalAlignment="Top" Width="340">
 
-            <Button x:Name="btnSummarySubmit" Content="Submit Vote" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100" Height="35" />
+            <Button x:Name="btnSummarySubmit" Content="Submit Vote" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100" Height="35" Click="btnSummarySubmit_Click" />
             <Button x:Name="btnSummaryBack" Content="Back" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="100" Height="35" Click="btnSummaryBack_Click"/>
 
         </Grid>

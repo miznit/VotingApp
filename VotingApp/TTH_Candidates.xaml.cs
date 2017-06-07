@@ -38,24 +38,27 @@ namespace VotingApp
 
             if (((RadioButton)radioButtonTTH1).IsChecked ?? true)
             {
+                currentUser.candidateVote = radioButtonTTH1.Content.ToString();
 
-                MainPage.theUser.CandidateVote = radioButtonTTH1.Content.ToString();
+                //MainPage.theUser.CandidateVote = radioButtonTTH1.Content.ToString();
 
-                conn.InsertOrReplace(MainPage.theUser);
+                //conn.InsertOrReplace(MainPage.theUser);
 
             }
 
             else if (((RadioButton)radioButtonTTH2).IsChecked ?? true)
             {
-                MainPage.theUser.CandidateVote = radioButtonTTH2.Content.ToString();
-                conn.InsertOrReplace(MainPage.theUser);
+                currentUser.candidateVote = radioButtonTTH2.Content.ToString();
+                //MainPage.theUser.CandidateVote = radioButtonTTH2.Content.ToString();
+                //conn.InsertOrReplace(MainPage.theUser);
 
             }
 
             else if (((RadioButton)radioButtonTTH3).IsChecked ?? true)
             {
-                MainPage.theUser.CandidateVote = radioButtonTTH3.Content.ToString();
-                conn.InsertOrReplace(MainPage.theUser);
+                currentUser.candidateVote = radioButtonTTH3.Content.ToString();
+                //MainPage.theUser.CandidateVote = radioButtonTTH3.Content.ToString();
+                //conn.InsertOrReplace(MainPage.theUser);
 
             }
 

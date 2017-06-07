@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SQLite.Net;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using VotingApp.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,13 +24,17 @@ namespace VotingApp
     /// </summary>
     public sealed partial class Summary : Page
     {
+        private SQLiteConnection conn;
+        private string path;
+
+       
         public Summary()
         {
             this.InitializeComponent();
-
-            textBoxSummary1.Text = MainPage.theUser.CandidateVote;
-            textBoxSummary2.Text = MainPage.theUser.PartyVote;
-            textBoxSummary3.Text = MainPage.theUser.ReferendumVote;
+            
+            textBoxSummary1.Text = currentUser.candidateVote;
+            textBoxSummary2.Text = currentUser.partyVote;
+            textBoxSummary3.Text = currentUser.referendumVote;
 
             
 
@@ -37,6 +43,26 @@ namespace VotingApp
         private void btnSummaryBack_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void btnSummarySubmit_Click(object sender, RoutedEventArgs e)
+        {
+            path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
+            conn = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
+            conn.CreateTable<User>();
+
+            conn.Insert(new User()
+            {
+                ElectoralID = currentUser.electoralID,
+                LastName = currentUser.lastName,
+                FirstNames = currentUser.firstNames,
+                DateOfBirth = currentUser.dateOfBirth,
+                CandidateVote = currentUser.candidateVote,
+                PartyVote = currentUser.partyVote,
+                ReferendumVote = currentUser.referendumVote,
+                TimeOfVote = currentUser.timeOfVote
+            });
+
         }
     }
 }
