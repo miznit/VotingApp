@@ -47,14 +47,15 @@ namespace VotingApp
             theUser = new User();
             users = UserManager.GetUsers();
                       
-                        
+            //this creates the path, connection, and table in the SQLite database            
             path = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "db.sqlite");
             conn = new SQLiteConnection(new SQLite.Net.Platform.WinRT.SQLitePlatformWinRT(), path);
             conn.CreateTable<User>();
 
 
         }
-
+        #region
+        //button click event for the submit button on the main page
         private async void btnMainPageSubmit_Click(object sender, RoutedEventArgs e)
         {
             lastNameRegex(@"^([a-zA-Z\s\'\-]+)$", textboxLastName);
@@ -93,6 +94,25 @@ namespace VotingApp
                
             }
 
+            if (textboxLastName.Text != "O'Reilly" || textboxLastName.Text!= "Baker" || textboxLastName.Text != "Dover")
+            {
+                var Dialog1 = new MessageDialog("You have entered an incorrect Last Name","CHECK LAST NAME");
+                await Dialog1.ShowAsync();
+            }
+
+            if (textboxFirstNames.Text != "Paddy Dougal" || textboxFirstNames.Text != "Norma-Jean" || textboxFirstNames.Text != "Ben James")
+            {
+                var Dialog2 = new MessageDialog("You have entered incorrect First Names", "CHECK FIRST NAMES");
+                await Dialog2.ShowAsync();
+            }
+
+            if (textboxElectoralID.Text!= "PMR123456" || textboxElectoralID.Text!= "TTH123456" || textboxElectoralID.Text!="RAN123456")
+            {
+                var Dialog3 = new MessageDialog("You have entered an incorrect Electoral ID", "CHECK ELECTORAL ID");
+                await Dialog3.ShowAsync();
+            }
+
+
 
 
 
@@ -105,15 +125,9 @@ namespace VotingApp
 
 
 
-            //conn.Insert(theUser);
-            //{
-            //    LastName = textboxLastName.Text,
-            //    FirstNames = textboxFirstNames.Text,
-            //    DateOfBirth = DatePicker.Date.ToString("yyyy-MM-dd"),
-            //    ElectoralID = textboxElectoralID.Text,
-
-            //};
+          
         }
+        #endregion
 
         public void lastNameRegex(string re, TextBox tb)
         {
@@ -174,18 +188,6 @@ namespace VotingApp
             firstNameRegex(@"^([a-zA-Z\s\'\-]+)$", textboxFirstNames);
         }
 
-        //public class user
-        //{
-        //    [PrimaryKey, AutoIncrement]
-
-        //    public string lastName { get; set; }
-
-        //    public string firstNames { get; set; }
-
-        //    public string dateOfBirth { get; set; }
-
-        //    public string electoralID { get; set; }
-        //}
-
+        
     }
 }
